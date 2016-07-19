@@ -67,7 +67,8 @@ public class Problem {
 		}
 		return allSolutions;
 	}
-
+	
+	//TODO Update solution to use Entries
 	public boolean checkSolution(Solution solution) {
 		List<String> auxList = getAllExpectedResults();
 		if (solution.getResults().size() != auxList.size()) return false;
