@@ -23,4 +23,11 @@ public class Dirlididi {
 	public List<Problem> getProblems() {
 		return this.problemList;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/login", params = "login , password")
+	public boolean login(String login, String password) {
+		return true;
+	}
+	
+	
 }
