@@ -7,9 +7,4 @@ import org.springframework.web.bind.annotation.*;
 @EnableAutoConfiguration
 public class RestReciever {
 
-	@RequestMapping("/hello")
-	String home() {
-		return "Hello World!";
-	}
-
 }
