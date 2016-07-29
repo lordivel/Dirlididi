@@ -143,4 +143,15 @@ public class InMemoryRestServer implements AutoCloseable {
             server = null;
         }
     }
+    
+    /**
+     * Begin a new {@link ResteasyWebTarget} with additional, relative path with leading /.
+     *
+     * @param uriTemplate
+     * @return ResteasyWebTarget
+     */
+    public ResteasyWebTarget newRequest(String uriTemplate) {
+        return resteasyClient.target(baseUri() + uriTemplate);
+    }
+
 }

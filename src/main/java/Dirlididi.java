@@ -52,4 +52,10 @@ public class Dirlididi {
 		return this.problemList.get(problemId).getTests();
 	}
 	
+	//TODO Fix this, not returning the correct info
+	@RequestMapping(method = RequestMethod.GET, value = "/problem/{id}/test/{testid}")
+	public ProblemTest getTestFromProblem( @PathVariable("id") String problemId, @PathVariable("testid") String testId) {
+		return this.problemList.get(problemId).getTests().get(0);
+	}
+	
 }
