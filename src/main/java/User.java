@@ -67,6 +67,11 @@ public class User {
 	public ProblemTest putSolutionToProblem(Problem problem, Solution sol) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Solution getSolution(Problem problem) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 	
 	

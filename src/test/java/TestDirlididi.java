@@ -13,6 +13,8 @@ import org.junit.BeforeClass;
 
 public class TestDirlididi {
 
+	private static final String FAKE_ID = "fakeId";
+
 	public static InMemoryRestServer server;
 
 	public final static String PROBLEM_ID = "fakeProblemId";
@@ -29,7 +31,7 @@ public class TestDirlididi {
 		server.close();
 	}
 
-	//GET /PROBLEM
+	// GET /PROBLEM
 	public static void TestGetProblems() {
 
 		Response response = server.newRequest("/problem").request().buildGet()
@@ -37,19 +39,18 @@ public class TestDirlididi {
 
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
-	
-	//POST /PROBLEM
+
+	// POST /PROBLEM
 	public static void TestPostNewProblem() {
 		Entity<String> someEntity = Entity.entity(
 				"name, description, code, tip", MediaType.APPLICATION_JSON);
-		Response response = server
-				.newRequest("/problem").request()
+		Response response = server.newRequest("/problem").request()
 				.buildPost(someEntity).invoke();
 
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
 
-	//GET /PROBLEM/{id}
+	// GET /PROBLEM/{id}
 	public static void TEstGetProblemWithId() {
 		Response response = server.newRequest("/problem/" + PROBLEM_ID)
 				.request().buildGet().invoke();
@@ -57,7 +58,7 @@ public class TestDirlididi {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
 
-	//GET /PROBLEM/{id}/TEST
+	// GET /PROBLEM/{id}/TEST
 	public static void TestGetProblemTests() {
 		Response response = server
 				.newRequest("/problem/" + PROBLEM_ID + "/test").request()
@@ -66,7 +67,7 @@ public class TestDirlididi {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
 
-	//GET /PROBLEM/{id}/TEST/{testid}
+	// GET /PROBLEM/{id}/TEST/{testid}
 	public static void TestGetProblemTestWithId() {
 		Response response = server
 				.newRequest("/problem/" + PROBLEM_ID + "/test/" + TEST_ID)
@@ -75,7 +76,7 @@ public class TestDirlididi {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
 
-	//POST /PROBLEM/{id}/SOLUTION
+	// POST /PROBLEM/{id}/SOLUTION
 	public static void TestPostSolutionToProblem() {
 		Entity<String> someEntity = Entity.entity("solutionString, user",
 				MediaType.APPLICATION_JSON);
@@ -86,7 +87,7 @@ public class TestDirlididi {
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
 
-	//POST /PROBLEM/{id}/TEST
+	// POST /PROBLEM/{id}/TEST
 	public static void TestPostNewProblemTest() {
 		Entity<String> someEntity = Entity.entity(
 				"name, tip, entry, expectedResult", MediaType.APPLICATION_JSON);
@@ -96,14 +97,41 @@ public class TestDirlididi {
 
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
-	
-	//POST /LOGIN
+
+	// POST /LOGIN
 	public static void TestLogin() {
-		Entity<String> someEntity = Entity.entity(
-				"login, pass", MediaType.APPLICATION_JSON);
-		Response response = server
-				.newRequest("/login").request()
+		Entity<String> someEntity = Entity.entity("login, pass",
+				MediaType.APPLICATION_JSON);
+		Response response = server.newRequest("/login").request()
 				.buildPost(someEntity).invoke();
+
+		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+	}
+
+	// POST /ACCOUNT
+	public static void testCreateAccount() {
+		Entity<String> someEntity = Entity.entity("email, pass",
+				MediaType.APPLICATION_JSON);
+		Response response = server.newRequest("/account").request()
+				.buildPost(someEntity).invoke();
+
+		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+	}
+
+	// GET /ACCOUNT
+	public static void getAllAccount() {
+		Entity<String> someEntity = Entity.entity("email, pass",
+				MediaType.APPLICATION_JSON);
+		Response response = server.newRequest("/account").request().buildGet()
+				.invoke();
+
+		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+	}
+
+	// GET /ACCOUNT
+	public static void getAnAccount() {
+		Response response = server.newRequest("/account/" + FAKE_ID).request().buildGet()
+				.invoke();
 
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
