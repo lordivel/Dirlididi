@@ -26,7 +26,7 @@ Method | description
 POST: | do login to the server
 
 
-## /account endpoint
+## /ACCOUNT endpoint
 This endpoint is intended for user information and account creationg
 Method | description
 ---- | ------------------------
