@@ -18,55 +18,73 @@ public class Dirlididi {
 	Map<String, Problem> problemList;
 	Map<String, User> userMap;
 
-	
 	public Dirlididi() {
 		this.problemList = new HashMap<String, Problem>();
 		this.userMap = new HashMap<String, User>();
 	}
-	
+
+	//GET /PROBLEM
 	@RequestMapping(method = RequestMethod.GET, value = "/problem")
 	public Map<String, Problem> getProblems() {
 		return this.problemList;
 	}
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/login", params = "login , password")
-	public boolean login(String login, String password) {
-		return true;
-	}
-	
+
+	//POST /PROBLEM
 	@RequestMapping(method = RequestMethod.POST, value = "/problem", params = "name, description, code, tip")
-	public String addProble(String name, String description, String code, String tip) {
+	public String addProble(String name, String description, String code,
+			String tip) {
 		List<ProblemTest> pt = new ArrayList<ProblemTest>();
 		Problem prob = new Problem(name, description, code, tip, pt);
 		this.problemList.put(prob.getId(), prob);
 		return prob.getId();
 	}
 	
+	//GET /PROBLEM/{id}
+	@RequestMapping(method = RequestMethod.GET, value = "/problem/{id}")
+	public Problem getProblemById(@PathVariable("id") String problemId) {
+		return this.problemList.get(problemId);
+	}
+
+	
+	//POST /LOGIN
+	@RequestMapping(method = RequestMethod.POST, value = "/login", params = "login , password")
+	public boolean login(String login, String password) {
+		return true;
+	}
+
+	//POST /PROBLEM/{id}/TEST
 	@RequestMapping(method = RequestMethod.POST, value = "/problem/{id}/test", params = "name, tip, entry, expectedResult")
-	public String addTestToProbles( @PathVariable("id") String problemId, String name, String tip, String entry, String expectedResult) {
+	public String addTestToProbles(@PathVariable("id") String problemId,
+			String name, String tip, String entry, String expectedResult) {
 		ProblemTest pt = new ProblemTest(name, tip, entry, expectedResult);
 		this.problemList.get(problemId).addTest(pt);
 		return pt.getId();
 	}
-	
+
+	//GET /PROBLEM/{id}/TEST
 	@RequestMapping(method = RequestMethod.GET, value = "/problem/{id}/test")
-	public List<ProblemTest> getTestsFromProblem( @PathVariable("id") String problemId) {
+	public List<ProblemTest> getTestsFromProblem(
+			@PathVariable("id") String problemId) {
 		return this.problemList.get(problemId).getTests();
 	}
-	
-	//TODO Fix this, not returning the correct info
+
+	//GET /PROBLEM/{id}/TEST/{testid}
+	// TODO Fix this, not returning the correct info
 	@RequestMapping(method = RequestMethod.GET, value = "/problem/{id}/test/{testid}")
-	public ProblemTest getTestFromProblem( @PathVariable("id") String problemId, @PathVariable("testid") String testId) {
+	public ProblemTest getTestFromProblem(@PathVariable("id") String problemId,
+			@PathVariable("testid") String testId) {
 		return this.problemList.get(problemId).getTests().get(0);
 	}
-	
-	//TODO Fix this, not returning the correct info
-		@RequestMapping(method = RequestMethod.POST, value = "/problem/{id}/solution", params = "solutionString, user")
-		public ProblemTest postProblemSolution( @PathVariable("id") String problemId, String solutionString, String user) {
-			Solution sol = new Solution(solutionString, new ArrayList<String>());
-			return this.userMap.get(user).putSolutionToProblem(this.problemList.get(problemId), sol);
-		}
-	
-	
-	
+
+	//POST /PROBLEM/{id}/SOLUTION
+	// TODO Fix this, not returning the correct info
+	@RequestMapping(method = RequestMethod.POST, value = "/problem/{id}/solution", params = "solutionString, user")
+	public ProblemTest postProblemSolution(
+			@PathVariable("id") String problemId, String solutionString,
+			String user) {
+		Solution sol = new Solution(solutionString, new ArrayList<String>());
+		return this.userMap.get(user).putSolutionToProblem(
+				this.problemList.get(problemId), sol);
+	}
+
 }
