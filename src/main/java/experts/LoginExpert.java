@@ -4,9 +4,15 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+
 import main.java.User;
 import main.java.exception.BlankSpaceException;
 
+@ManagedBean
+@SessionScoped
 public class LoginExpert implements Serializable {
 
 	private static final String LOGIN_SUCESS      = "login_sucesso";
@@ -19,24 +25,42 @@ public class LoginExpert implements Serializable {
 	private AcessControlExpert acessControl;
 	
 	/**
+	 * Default login
+	 */
+	public LoginExpert(){}
+	
+	/**
 	 * Inicialize one Anonimous login
 	 */
+	@PostConstruct
 	public void inicialize(){
 		user = new User();
 		acessControl = new AcessControlExpert();
 		//TODO Logger.getLogger(LoginExpert.class).log(Level.INFO," > Iniciating one Annonimous login");
 	}
 	
-	public String inicialize(String login, String pass) throws BlankSpaceException{
+	
+	public String doLogin(String login, String pass) throws BlankSpaceException{
 		
-		if(filledSpaces(login,pass)){
-			doLogin(login,pass);
+		if(filledSpaces(login,pass) && !isUsuarioLogado()){
+			if(loginService(login,pass)){
+				
+				
+			}
+			
+			//doLogin(login,pass);
 			return LOGIN_SUCESS;
 		}
 		return LOGIN_FAIL;
 	}
 	
-	private void doLogin(String login, String pass) {
+	private boolean isUsuarioLogado() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+	private boolean loginService(String login, String pass) {
 		//FIXME
 		try{
 			String uPass = "";
@@ -48,11 +72,16 @@ public class LoginExpert implements Serializable {
 			 */
 			if(pass.equals(uPass)){
 				SessionExpert.newSession(login);
+				return true;
 			}
+			return false;
 		}catch(Exception e){
 			
 		}
+		return false;
 	}
+	
+	
 
 	/*
 	 * Detects if there were any blank spaces in login/password
