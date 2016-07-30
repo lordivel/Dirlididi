@@ -43,3 +43,5 @@ Method | description
 POST: | creates a new test case
 GET: | returns all the test cases for a problem
 GET {testid} : | returns the information of one specific test case
+
+Application location: http://jbosswildfly-dirlididiativ.rhcloud.com/
