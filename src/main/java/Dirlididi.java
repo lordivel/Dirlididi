@@ -23,12 +23,28 @@ public class Dirlididi {
 		this.userMap = new HashMap<String, User>();
 	}
 
+	/**
+	 * @return Return all registered problems.
+	 */
 	//GET /PROBLEM
 	@RequestMapping(method = RequestMethod.GET, value = "/problem")
 	public Map<String, Problem> getProblems() {
 		return this.problemList;
 	}
 
+	/**
+	 * Add new problem on the list of problems.
+	 * @param name
+	 * 			Name of the problem
+	 * @param description
+	 * 			Description of the problem
+	 * @param code
+	 * 			Problem's code
+	 * @param tip
+	 * 			Problem's tip
+	 * @return
+	 * 			This problem id. This ID is automatically created.
+	 */
 	//POST /PROBLEM
 	@RequestMapping(method = RequestMethod.POST, value = "/problem", params = "name, description, code, tip")
 	public String addProble(String name, String description, String code,
@@ -39,19 +55,46 @@ public class Dirlididi {
 		return prob.getId();
 	}
 	
+	/**
+	 * Get one problem by his id, or null if there is no problem with this id.
+	 * @param problemId
+	 * 			id of the problem you want to acess.
+	 * @return
+	 * 			the problem to which the specified id is mapped, or null if this map contains no problem with this id.
+	 */
 	//GET /PROBLEM/{id}
 	@RequestMapping(method = RequestMethod.GET, value = "/problem/{id}")
 	public Problem getProblemById(@PathVariable("id") String problemId) {
 		return this.problemList.get(problemId);
 	}
 
-	
+	/**
+	 * 
+	 * @param login
+	 * @param password
+	 * @return
+	 */
 	//POST /LOGIN
 	@RequestMapping(method = RequestMethod.POST, value = "/login", params = "login , password")
 	public boolean login(String login, String password) {
 		return true;
 	}
 
+	/**
+	 * Add one new test on one specific problem  
+	 * @param problemId
+	 * 			Id of the problem you want to add the test
+	 * @param name
+	 * 			Name of the test
+	 * @param tip
+	 * 			Tip of the test
+	 * @param entry
+	 * 			Entry of the test
+	 * @param expectedResult
+	 * 			Expected Result of the test
+	 * @return
+	 * 			This problem id. This ID is automatically created.
+	 */
 	//POST /PROBLEM/{id}/TEST
 	@RequestMapping(method = RequestMethod.POST, value = "/problem/{id}/test", params = "name, tip, entry, expectedResult")
 	public String addTestToProbles(@PathVariable("id") String problemId,
@@ -61,6 +104,13 @@ public class Dirlididi {
 		return pt.getId();
 	}
 
+	/**
+	 * Get a list of tests from one specific problem by his ID.
+	 * @param problemId
+	 * 			Id of the problems you want to get the test's list.
+	 * @return
+	 * 			List of all tests from the problem
+	 */
 	//GET /PROBLEM/{id}/TEST
 	@RequestMapping(method = RequestMethod.GET, value = "/problem/{id}/test")
 	public List<ProblemTest> getTestsFromProblem(
@@ -68,6 +118,16 @@ public class Dirlididi {
 		return this.problemList.get(problemId).getTests();
 	}
 
+	/**
+	 * Get one specific test from one problem. Notice that same testID is completely linked with problemID, so,
+	 * if you have the same testID from different problemID, it will return different test. 
+	 * @param problemId
+	 * 			Id of the problem you want to find the test.
+	 * @param testId
+	 * 			Id of the test you want to get.
+	 * @return
+	 * 			Chosen test from the problem.
+	 */
 	//GET /PROBLEM/{id}/TEST/{testid}
 	// TODO Fix this, not returning the correct info
 	@RequestMapping(method = RequestMethod.GET, value = "/problem/{id}/test/{testid}")
@@ -75,7 +135,19 @@ public class Dirlididi {
 			@PathVariable("testid") String testId) {
 		return this.problemList.get(problemId).getTests().get(0);
 	}
-
+	
+	
+	/**
+	 * Create one solution from one problem
+	 * @param problemId
+	 * 			ID of the problem you want to add the new solution
+	 * @param solutionString
+	 * 			Solution of the problem
+	 * @param user
+	 * 			User that is sending the solution
+	 * @return
+	 * 			
+	 */
 	//POST /PROBLEM/{id}/SOLUTION
 	// TODO Fix this, not returning the correct info
 	@RequestMapping(method = RequestMethod.POST, value = "/problem/{id}/solution", params = "solutionString, user")
