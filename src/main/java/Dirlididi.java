@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class Dirlididi {
 
 	Map<String, Problem> problemList;
+	Map<String, User> userMap;
 
 	
 	public Dirlididi() {
 		this.problemList = new HashMap<String, Problem>();
+		this.userMap = new HashMap<String, User>();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/problem")
@@ -57,5 +59,14 @@ public class Dirlididi {
 	public ProblemTest getTestFromProblem( @PathVariable("id") String problemId, @PathVariable("testid") String testId) {
 		return this.problemList.get(problemId).getTests().get(0);
 	}
+	
+	//TODO Fix this, not returning the correct info
+		@RequestMapping(method = RequestMethod.POST, value = "/problem/{id}/solution", params = "solutionString, user")
+		public ProblemTest postProblemSolution( @PathVariable("id") String problemId, String solutionString, String user) {
+			Solution sol = new Solution(solutionString, new ArrayList<String>());
+			return this.userMap.get(user).putSolutionToProblem(this.problemList.get(problemId), sol);
+		}
+	
+	
 	
 }

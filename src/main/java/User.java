@@ -62,6 +62,11 @@ public class User {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public ProblemTest putSolutionToProblem(Problem problem, Solution sol) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 	
 	
