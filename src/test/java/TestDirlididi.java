@@ -10,6 +10,7 @@ import main.java.Dirlididi;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class TestDirlididi {
 
@@ -32,7 +33,8 @@ public class TestDirlididi {
 	}
 
 	// GET /PROBLEM
-	public static void TestGetProblems() {
+	@Test
+	public  void TestGetProblems() {
 
 		Response response = server.newRequest("/problem").request().buildGet()
 				.invoke();
@@ -41,7 +43,8 @@ public class TestDirlididi {
 	}
 
 	// POST /PROBLEM
-	public static void TestPostNewProblem() {
+	@Test
+	public void TestPostNewProblem() {
 		Entity<String> someEntity = Entity.entity(
 				"name, description, code, tip", MediaType.APPLICATION_JSON);
 		Response response = server.newRequest("/problem").request()
@@ -51,7 +54,8 @@ public class TestDirlididi {
 	}
 
 	// GET /PROBLEM/{id}
-	public static void TEstGetProblemWithId() {
+	@Test
+	public void TEstGetProblemWithId() {
 		Response response = server.newRequest("/problem/" + PROBLEM_ID)
 				.request().buildGet().invoke();
 
@@ -59,7 +63,8 @@ public class TestDirlididi {
 	}
 
 	// GET /PROBLEM/{id}/TEST
-	public static void TestGetProblemTests() {
+	@Test
+	public void TestGetProblemTests() {
 		Response response = server
 				.newRequest("/problem/" + PROBLEM_ID + "/test").request()
 				.buildGet().invoke();
@@ -68,7 +73,8 @@ public class TestDirlididi {
 	}
 
 	// GET /PROBLEM/{id}/TEST/{testid}
-	public static void TestGetProblemTestWithId() {
+	@Test
+	public void TestGetProblemTestWithId() {
 		Response response = server
 				.newRequest("/problem/" + PROBLEM_ID + "/test/" + TEST_ID)
 				.request().buildGet().invoke();
@@ -77,7 +83,8 @@ public class TestDirlididi {
 	}
 
 	// POST /PROBLEM/{id}/SOLUTION
-	public static void TestPostSolutionToProblem() {
+	@Test
+	public void TestPostSolutionToProblem() {
 		Entity<String> someEntity = Entity.entity("solutionString, user",
 				MediaType.APPLICATION_JSON);
 		Response response = server
@@ -88,7 +95,8 @@ public class TestDirlididi {
 	}
 
 	// POST /PROBLEM/{id}/TEST
-	public static void TestPostNewProblemTest() {
+	@Test
+	public void TestPostNewProblemTest() {
 		Entity<String> someEntity = Entity.entity(
 				"name, tip, entry, expectedResult", MediaType.APPLICATION_JSON);
 		Response response = server
@@ -99,7 +107,8 @@ public class TestDirlididi {
 	}
 
 	// POST /LOGIN
-	public static void TestLogin() {
+	@Test
+	public void TestLogin() {
 		Entity<String> someEntity = Entity.entity("login, pass",
 				MediaType.APPLICATION_JSON);
 		Response response = server.newRequest("/login").request()
@@ -109,7 +118,8 @@ public class TestDirlididi {
 	}
 
 	// POST /ACCOUNT
-	public static void testCreateAccount() {
+	@Test
+	public void testCreateAccount() {
 		Entity<String> someEntity = Entity.entity("email, pass",
 				MediaType.APPLICATION_JSON);
 		Response response = server.newRequest("/account").request()
@@ -119,7 +129,8 @@ public class TestDirlididi {
 	}
 
 	// GET /ACCOUNT
-	public static void getAllAccount() {
+	@Test
+	public void getAllAccount() {
 		Entity<String> someEntity = Entity.entity("email, pass",
 				MediaType.APPLICATION_JSON);
 		Response response = server.newRequest("/account").request().buildGet()
@@ -129,7 +140,8 @@ public class TestDirlididi {
 	}
 
 	// GET /ACCOUNT
-	public static void getAnAccount() {
+	@Test
+	public void getAnAccount() {
 		Response response = server.newRequest("/account/" + FAKE_ID).request().buildGet()
 				.invoke();
 
