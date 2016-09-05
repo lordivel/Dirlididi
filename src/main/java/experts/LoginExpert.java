@@ -34,7 +34,7 @@ public class LoginExpert implements Serializable {
 	@PostConstruct
 	public void inicialize() {
 		user = new User();
-		acessControl = new AcessControlExpert();
+		acessControl = new AcessControlExpert(null);
 		// TODO
 		// Logger.getLogger(LoginExpert.class).log(Level.INFO," > Iniciating one Annonimous login");
 	}

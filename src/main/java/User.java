@@ -1,14 +1,21 @@
 package main.java;
 
+
+import javax.persistence.Column;
+
+
 public class User {
 	public enum UserType {
 		ANONIMOUS, NORMAL, ADMINISTRATOR
 	}
 
+	@Column(nullable = false)
 	private UserType type;
 
+	@Column(nullable = false)
 	private String email;
 
+	@Column(nullable = false)
 	private String pass;
 
 	public User() {

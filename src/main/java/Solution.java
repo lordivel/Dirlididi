@@ -3,12 +3,38 @@ package main.java;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.springframework.ldap.odm.annotations.Id;
+
 public class Solution {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private String id;
+	
+	@Column(nullable = false)
 	private String solutionBody;
 
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="solution_id")
 	private List<String> results;
 
+	@ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="problem_id", nullable = false)
+    private Problem problem;
+	
 	private boolean isCorrect = false;
 
 	public Solution(String solutionBody, List<String> results) {
