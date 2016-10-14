@@ -9,10 +9,15 @@ import javax.enterprise.context.SessionScoped;
 import main.java.User;
 import main.java.exception.BlankSpaceException;
 
+import com.auth0.Auth0;
+import com.auth0.authentication.AuthenticationAPIClient;
+
 @ManagedBean
 @SessionScoped
 public class LoginExpert implements Serializable {
 
+	Auth0 auth0 = new Auth0("fM4SMBaJOj58EBn18aFpfXpBtBrzhuUW", "dirlididiia.auth0.com ");
+	
 	private static final String LOGIN_SUCESS = "login_sucesso";
 	private static final String LOGIN_FAIL = "login_falha";
 	private static final String SESSAO_INEXISTENT = "sessao_invalida";
@@ -40,8 +45,8 @@ public class LoginExpert implements Serializable {
 	}
 
 	public String doLogin(String login, String pass) throws BlankSpaceException {
-
-		if (filledSpaces(login, pass) && !isUsuarioLogado()) {
+		AuthenticationAPIClient client = auth0.newAuthenticationAPIClient();
+		if (client.login(login, pass) != null) {
 			if (loginService(login, pass)) {
 
 			}
